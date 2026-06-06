@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humaiza Maheen — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0c0a;
+    --bg2: #161210;
+    --bg3: #1e1814;
+    --sage: #7a9e7e;
+    --sage-light: #a8c5ab;
+    --sage-dark: #4a6b50;
+    --gold: #c9a96e;
+    --gold-light: #e8c98a;
+    --beige: #f0e8d8;
+    --beige-muted: #c8b89a;
+    --text: #f0ebe3;
+    --text-muted: #9a8f82;
+    --border: rgba(122,158,126,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--sage);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(122,158,126,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.08s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  }
+
+  /* Floral bg pattern */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(74,107,80,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(201,169,110,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 30%, rgba(122,158,126,0.04) 0%, transparent 40%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Floating floral SVG decorations */
+  .floral-deco {
+    position: fixed;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(14,12,10,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 300; letter-spacing: 0.1em;
+    color: var(--beige);
+  }
+  .nav-logo span { color: var(--sage); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--sage-light); }
+
+  /* Hero */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 4rem;
+    position: relative; z-index: 1;
+  }
+  .hero-inner { max-width: 800px; }
+
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--sage);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 1.0;
+    color: var(--beige); margin-bottom: 0.3rem;
+  }
+  h1 em {
+    font-style: italic; color: var(--sage-light);
+    display: block;
+  }
+
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 1rem; line-height: 1.8;
+    color: var(--text-muted); max-width: 520px;
+  }
+
+  .hero-tags {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--sage-light);
+    border-radius: 2px;
+    background: rgba(122,158,126,0.05);
+  }
+
+  .hero-cta {
+    margin-top: 3rem; display: flex; gap: 1.5rem; align-items: center;
+  }
+  .btn-primary {
+    padding: 0.85rem 2.2rem;
+    background: var(--sage-dark);
+    color: var(--beige);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    border: none; cursor: none; text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--sage-light); }
+  .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+  .btn-ghost:hover::after { transform: translateX(4px); }
+
+  .hero-floral {
+    position: absolute; right: 4rem; top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.12; font-size: 18rem;
+    line-height: 1; color: var(--sage);
+    font-family: 'Cormorant Garamond', serif;
+    pointer-events: none; user-select: none;
+  }
+
+  /* Sections */
+  section { padding: 6rem 4rem; position: relative; z-index: 1; }
+
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 30px; height: 1px; background: var(--sage);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; color: var(--beige);
+    margin-bottom: 3rem;
+  }
+  h2 span { color: var(--sage-light); font-style: italic; }
+
+  /* About */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem; line-height: 1.9; color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--beige); font-weight: 400; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .stat-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: rgba(122,158,126,0.04);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300;
+    color: var(--gold-light); line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .about-skills h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--beige); margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .skill-group { margin-bottom: 2rem; }
+  .skill-group-label {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 0.8rem;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pill {
+    padding: 0.3rem 0.9rem;
+    background: rgba(122,158,126,0.08);
+    border: 1px solid rgba(122,158,126,0.25);
+    font-size: 0.78rem; color: var(--sage-light);
+    border-radius: 2px;
+  }
+
+  /* Projects */
+  #projects { background: var(--bg); }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5px; background: rgba(122,158,126,0.1);
+  }
+  .project-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--sage-dark), var(--gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover { background: var(--bg3); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300;
+    color: rgba(122,158,126,0.12); line-height: 1;
+    margin-bottom: 1.2rem;
+  }
+  .project-tech {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 0.8rem;
+  }
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; color: var(--beige);
+    margin-bottom: 0.8rem; line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.88rem; line-height: 1.7; color: var(--text-muted);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.5rem;
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--sage-light); text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.8rem; }
+
+  /* Experience */
+  #experience { background: var(--bg2); }
+  .exp-list { max-width: 780px; }
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 3rem; padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(122,158,126,0.1);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted); padding-top: 0.2rem;
+  }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; color: var(--beige); margin-bottom: 0.3rem;
+    font-weight: 400;
+  }
+  .exp-org { font-size: 0.82rem; color: var(--sage); margin-bottom: 0.8rem; }
+  .exp-desc { font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); }
+
+  /* Creative */
+  #creative { background: var(--bg); }
+  .creative-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .creative-card {
+    aspect-ratio: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.5rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .creative-card:hover { border-color: rgba(122,158,126,0.5); }
+  .creative-icon {
+    font-size: 4rem; line-height: 1;
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    opacity: 0.15;
+  }
+  .creative-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--beige);
+    font-weight: 400; margin-bottom: 0.3rem;
+  }
+  .creative-sub { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* Contact */
+  #contact {
+    background: var(--bg2);
+    text-align: center;
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-inner p {
+    font-size: 1rem; line-height: 1.8; color: var(--text-muted);
+    margin-bottom: 2.5rem;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .contact-link:hover { transform: translateY(-4px); }
+  .contact-link-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    background: rgba(122,158,126,0.05);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .contact-link:hover .contact-link-icon {
+    background: rgba(122,158,126,0.12);
+    border-color: rgba(122,158,126,0.4);
+  }
+  .contact-link-label {
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Footer */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(122,158,126,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+  footer p {
+    font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.05em;
+  }
+  .footer-floral {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--sage); opacity: 0.5;
+    letter-spacing: 0.3em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards;
+  }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+  .delay-5 { animation-delay: 0.75s; }
+
+  /* Divider ornament */
+  .ornament {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--sage);
+    opacity: 0.4; letter-spacing: 0.5em;
+    margin: 1rem 0 3rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Floating floral decoration -->
+<div class="floral-deco" style="right:-5rem;top:15%;font-size:40rem;font-family:'Cormorant Garamond',serif;color:#7a9e7e;line-height:1;">✿</div>
+<div class="floral-deco" style="left:-3rem;bottom:20%;font-size:25rem;font-family:'Cormorant Garamond',serif;color:#c9a96e;line-height:1;">✾</div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">HM<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#creative">Creative</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow fade-up">Aspiring Software Developer </div>
+    <h1 class="fade-up delay-1">
+      Humaiza<br><em>Maheen</em>
+    </h1>
+    <p class="hero-desc fade-up delay-2">
+      I'm a developer and designer who thinks in both code and visuals. 
+I build things — responsive web interfaces, Django backends, Python 
+scripts that scrape and process real data  
+currently in my final years of BSCS, and I move fast, learn faster, 
+and bring a creative perspective to every problem I touch.
+    </p>
+    <div class="hero-tags fade-up delay-3">
+      <span class="tag">HTML · CSS · JS</span>
+      <span class="tag">Python · Django</span>
+      <span class="tag">UI / UX</span>
+      <span class="tag">Web Scraping</span>
+      <span class="tag">Educator</span>
+    </div>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-floral" aria-hidden="true">✿</div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <h2>Code meets <span>creativity</span></h2>
+  <div class="ornament">— ✦ —</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>6th semester BSCS student</strong> at Islamia University Bahawalpur with hands-on experience in frontend development, UI/UX,graphic design, and Python — gained through an internship at <strong>FutureSol Tech</strong>.</p>
+      <p>I've taught web development to college students, managed social media for an institution, built e-commerce projects, and organised community events. I bring both <strong>technical skills and a creative eye</strong> to everything I work on.</p>
+      <p>Outside of tech, I sketch, paint, bake, journal, and run a small crochet business called <strong>Ivy & Stardust</strong>.</p>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Internships</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6th</div>
+          <div class="stat-label">Semester BSCS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Curiosity</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-skills">
+      <h3>Skills & Tools</h3>
+      <div class="skill-group">
+        <div class="skill-group-label">Frontend & Design</div>
+        <div class="skill-pills">
+          <span class="pill">HTML</span><span class="pill">CSS</span>
+          <span class="pill">JavaScript</span><span class="pill">UI / UX</span>
+          <span class="pill">Graphic Design</span><span class="pill">Figma (basic)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Backend & Python</div>
+        <div class="skill-pills">
+          <span class="pill">Python</span><span class="pill">Django</span>
+          <span class="pill">BeautifulSoup4</span><span class="pill">Requests</span>
+          <span class="pill">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Data & Tools</div>
+        <div class="skill-pills">
+          <span class="pill">NumPy</span><span class="pill">Pandas</span>
+          <span class="pill">Matplotlib</span><span class="pill">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2>Selected <span>Projects</span></h2>
+  <div class="ornament">— ✦ —</div>
+  <div class="projects-grid">
+ <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-tech">case study</div>
+      <div class="project-title">TPHS site</div>
+      <p class="project-desc">esigned a complete UI/UX case study for a School system, focusing on user-centered design, visual aesthetics, and smooth navigation. Created wireframes and high-fidelity layouts to enhance user experience and improve product browsing flow for handmade and creative products.</p>
+      <a href="https://github.com/HumaizaMaheen/TPHS-case-study" target="_blank"class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-tech">case study</div>
+      <div class="project-title">art site</div>
+      <p class="project-desc">designed a complete UI/UX case study for an online art store, focusing on user-centered design, visual aesthetics, and smooth navigation. Created wireframes and high-fidelity layouts to enhance user experience and improve product browsing flow for handmade and creative products.</p>
+      <a href="https://github.com/HumaizaMaheen/case-study" target="_blank"class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-tech">Python · Requests · BeautifulSoup4</div>
+      <div class="project-title">Book Web Scraper</div>
+      <p class="project-desc">Multi-page web scraper that extracts book titles, prices, ratings, and availability from books.toscrape.com. Handles pagination automatically and exports clean data to CSV.</p>
+      <a href="https://github.com/HumaizaMaheen/Python-Webscrapper" target="_blank"class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-tech">HTML · CSS · JavaScript · Mock API</div>
+      <div class="project-title">Art All-in-One Store</div>
+      <p class="project-desc">Frontend e-commerce platform for art supplies. Integrated a Mock API to simulate real product data and cart logic. Focused on clean UI, intuitive navigation, and visual consistency.</p>
+      <a href="https://github.com/HumaizaMaheen/art-site" target="_blank" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">05</div>
+      <div class="project-tech">Python · Data Structures & Algorithms</div>
+      <div class="project-title">Todo List App</div>
+      <p class="project-desc">Task management application built in Python applying DSA concepts — linked lists and priority queues. Demonstrates how data structure choices directly impact application performance.</p>
+      <a href="https://github.com/HumaizaMaheen/To-do-List/tree/main" target="_blank"class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">06</div>
+      <div class="project-tech">Python · Django </div>
+      <div class="project-title">Django Jacket Store</div>
+      <p class="project-desc">e-commerce store with product listings, cart functionality, and Django admin panel. Built to reinforce backend fundamentals — models, views, ORM, and templates.</p>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">07</div>
+      <div class="project-tech">Small Business · Branding · Instagram</div>
+      <div class="project-title">Ivy & Stardust</div>
+      <p class="project-desc">Founded and run a crochet small business — handling product design, pricing, fulfilment, and Instagram marketing. A real exercise in creativity, branding, and entrepreneurship.</p>
+      <a href="https://instagram.com/humaizaamaheen" target="_blank" class="project-link">View on Instagram →</a>
+    </div>
+
+    <div class="project-card" style="background: rgba(122,158,126,0.04); border: 1px dashed rgba(122,158,126,0.2); display:flex;align-items:center;justify-content:center;text-align:center;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:rgba(122,158,126,0.3);margin-bottom:1rem;">✿</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;">More projects<br>coming soon</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-label">Journey</div>
+  <h2>Experience & <span>Education</span></h2>
+  <div class="ornament">— ✦ —</div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Internship<br>FutureSol Tech</div>
+      <div>
+        <div class="exp-role">Frontend & UI/UX Intern</div>
+        <div class="exp-org">FutureSol Tech</div>
+        <p class="exp-desc">Built responsive web pages with HTML, CSS, and JavaScript. Applied UI/UX principles to real client projects. Also explored Django basics — routing, views, models, and CRUD operations.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2025<br>The Programmer School</div>
+      <div>
+        <div class="exp-role">Social Media Manager</div>
+        <div class="exp-org">The Programmer School</div>
+        <p class="exp-desc">Managed official social media pages. Created and scheduled content, designed graphics, wrote captions for a tech audience, and monitored engagement metrics.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Part-time<br>Jinnah College</div>
+      <div>
+        <div class="exp-role">Web Development Instructor</div>
+        <div class="exp-org">Jinnah College, Bahawalpur</div>
+        <p class="exp-desc">Taught HTML, CSS, and JavaScript to college students. Designed lesson plans, guided students through building their first web projects, and developed strong communication skills.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Volunteer<br>FutureSpace</div>
+      <div>
+        <div class="exp-role">Community Organiser</div>
+        <div class="exp-org">FutureSpace</div>
+        <p class="exp-desc">Founded and managed an art community — coordinating members, events, and creative activities. Handled promotional content and grew community visibility through social media.</p>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2023–Present<br>IUB</div>
+      <div>
+        <div class="exp-role">BS Computer Science</div>
+        <div class="exp-org">Islamia University Bahawalpur — 6th Semester</div>
+        <p class="exp-desc">Core studies in DSA, OOP, Software Engineering, Web Technologies, and Database Systems.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Creative Side -->
+<section id="creative">
+  <div class="section-label">Beyond Code</div>
+  <h2>The Creative <span>Side</span></h2>
+  <div class="ornament">— ✦ —</div>
+  <div class="creative-grid">
+    <div class="creative-card">
+      <div class="creative-icon">🎨</div>
+      <div class="creative-title">Art & Illustration</div>
+      <div class="creative-sub">Sketching & painting — shared on Instagram</div>
+    </div>
+    <div class="creative-card">
+      <div class="creative-icon">🧶</div>
+      <div class="creative-title">Ivy & Stardust</div>
+      <div class="creative-sub">Crochet small business — design to fulfilment</div>
+    </div>
+    <div class="creative-card">
+      <div class="creative-icon">📓</div>
+      <div class="creative-title">Writing & Journaling</div>
+      <div class="creative-sub">Daily journaling & reflective writing practice</div>
+    </div>
+    <div class="creative-card">
+      <div class="creative-icon">🌿</div>
+      <div class="creative-title">Community Building</div>
+      <div class="creative-sub">Organised art community at FutureSpace</div>
+    </div>
+    <div class="creative-card">
+      <div class="creative-icon">🎂</div>
+      <div class="creative-title">Baking</div>
+      <div class="creative-sub">Another creative outlet — precision meets art</div>
+    </div>
+    <div class="creative-card">
+      <div class="creative-icon">📚</div>
+      <div class="creative-title">Teaching</div>
+      <div class="creative-sub">Making complex things simple — web dev educator</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2>Get in <span>Touch</span></h2>
+  <div class="ornament">— ✦ —</div>
+  <div class="contact-inner">
+    <p>I'm currently looking for internship opportunities in UI/UX design and Python/web development. If you think we'd work well together, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:maheenhumaiza@gmail.com" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <span class="contact-link-label">Email</span>
+      </a>
+      <a href="https://instagram.com/humaizaamaheen" target="_blank" class="contact-link">
+        <div class="contact-link-icon">📸</div>
+        <span class="contact-link-label">Instagram</span>
+      </a>
+      <a href="https://github.com/HumaizaMaheen" target="_blank"class="contact-link">
+        <div class="contact-link-icon">⌨</div>
+        <span class="contact-link-label">GitHub</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Humaiza Maheen · Bahawalpur, Pakistan</p>
+  <div class="footer-floral">✿ ✦ ✿</div>
+  <p>Designed & built by me</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '48px'; ring.style.height = '48px';
+      ring.style.borderColor = 'rgba(122,158,126,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '32px'; ring.style.height = '32px';
+      ring.style.borderColor = 'rgba(122,158,126,0.5)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .exp-item, .creative-card, .stat-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
